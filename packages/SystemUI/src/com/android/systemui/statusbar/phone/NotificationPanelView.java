@@ -23,6 +23,8 @@ import android.animation.ValueAnimator;
 import android.app.ActivityManager;
 import android.app.StatusBarManager;
 import android.content.Context;
+import android.database.ContentObserver;
+import android.content.ContentResolver;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -2383,9 +2385,9 @@ public class NotificationPanelView extends PanelView implements
         }
 
         void observe() {
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+            /*mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN),
-                    false, this, UserHandle.USER_ALL);
+                    false, this, UserHandle.USER_ALL);*/
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
                     false, this, UserHandle.USER_ALL);
@@ -2407,14 +2409,15 @@ public class NotificationPanelView extends PanelView implements
             update();
         }
 
-        public void update() {
+/*        public void update() {
             ContentResolver resolver = mContext.getContentResolver();
             mOneFingerQuickSettingsIntercept = Settings.System.getIntForUser(
                     mContext.getContentResolver(), Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN, 0,
                     UserHandle.USER_CURRENT);
         }
+*/
     }
-
+/*
     private boolean isQsSecureExpandDisabled() {
         final boolean keyguardOrShadeShowing = mStatusBarState == StatusBarState.KEYGUARD
                 || mStatusBarState == StatusBarState.SHADE_LOCKED;
@@ -2427,7 +2430,7 @@ public class NotificationPanelView extends PanelView implements
                 mContext.getContentResolver(), Settings.Secure.LOCK_QS_DISABLED, 0,
                 UserHandle.USER_CURRENT) != 0;
     }
-
+*/
     public void update() {
         ContentResolver resolver = mContext.getContentResolver();
         mDoubleTapToSleepEnabled = Settings.System.getIntForUser(resolver,
